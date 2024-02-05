@@ -29,18 +29,50 @@ function getPlayerChoice() {
         return string;
 }
 
-function playRPS(humanPlayer,aiPlayer) {
-    while (humanPlayer === aiPlayer) {
-        console.log("It is a tie, play again.");
-        humanPlayer = getPlayerChoice();
-        aiPlayer = getComputerChoice();
+function findWinner(humanPlayer,aiPlayer) {
+    if(humanPlayer === aiPlayer)
+        return "tie";
+    else if(
+    (humanPlayer === "Rock" && aiPlayer === "Scissors") ||
+    (humanPlayer === "Scissors" && aiPlayer === "Paper") ||
+    (humanPlayer === "Paper" && aiPlayer === "Rock")) 
+    {
+        return "human";
+    }
+    else
+        return "ai";
+}
+
+function getWinningMessage(winnerChoice) {
+    switch (winnerChoice) {
+        case "Rock":
+            return "Rock crushes Scissors";
+        case "Paper":
+            return "Paper covers Rock";
+        case "Scissors":
+            return "Scissors cuts Paper";
+        default:
+            return "Unknown result";
     }
 }
 
+function playRPS() {
 
-let computerChoice = getComputerChoice(getRandomNumber());
-let playerChoice = getPlayerChoice();
+    let humanPlayer = getPlayerChoice();
+    let aiPlayer = getComputerChoice();
+    const result = findWinner(humanPlayer,aiPlayer);
 
+    while(result === "tie") {
+        console.log("It is a tie, play again.");
+        humanPlayer = getPlayerChoice();
+        aiPlayer = getComputerChoice();
+        result = findWinner(humanPlayer,aiPlayer);
+    }
 
-console.log(computerChoice);
-console.log(playerChoice);
+    if(result === "human") {
+        console.log(`You win! ${getWinningMessage(humanPlayer)}.`);
+    }
+    else {
+        console.log(`You loose! ${getWinningMessage(aiPlayer)}.`);
+    }  
+}
