@@ -10,7 +10,8 @@ function getRandomNumber() {
     return (Math.floor(Math.random() * (max - min + 1)) + min);
 }
 
-function getComputerChoice(randomNumber) {
+function getComputerChoice() {
+    const randomNumber = getRandomNumber();
     switch(randomNumber) {
         case 1:
             return "Rock";
@@ -26,7 +27,8 @@ function getPlayerChoice() {
    
     while (string !== "Rock" && string !== "Paper" && string !== "Scissors")
         string = prompt("Entered wrong value. Please enter either Rock, Paper or Scissors as your choice:")
-        return string;
+    
+    return string;
 }
 
 function findWinner(humanPlayer,aiPlayer) {
@@ -44,6 +46,7 @@ function findWinner(humanPlayer,aiPlayer) {
 }
 
 function getWinningMessage(winnerChoice) {
+
     switch (winnerChoice) {
         case "Rock":
             return "Rock crushes Scissors";
@@ -60,7 +63,9 @@ function playRPS() {
 
     let humanPlayer = getPlayerChoice();
     let aiPlayer = getComputerChoice();
-    const result = findWinner(humanPlayer,aiPlayer);
+    let result = findWinner(humanPlayer,aiPlayer);
+
+    console.log(result);
 
     while(result === "tie") {
         console.log("It is a tie, play again.");
@@ -68,6 +73,8 @@ function playRPS() {
         aiPlayer = getComputerChoice();
         result = findWinner(humanPlayer,aiPlayer);
     }
+    console.log(humanPlayer);
+    console.log(aiPlayer);
 
     if(result === "human") {
         console.log(`You win! ${getWinningMessage(humanPlayer)}.`);
@@ -76,3 +83,5 @@ function playRPS() {
         console.log(`You loose! ${getWinningMessage(aiPlayer)}.`);
     }  
 }
+
+playRPS();
