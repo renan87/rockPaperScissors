@@ -5,8 +5,6 @@
 function getRandomNumber() {
     const min = 1;
     const max = 3;
-    console.log(Math.floor(Math.random() * (max - min + 1)) + min);
-
     return (Math.floor(Math.random() * (max - min + 1)) + min);
 }
 
@@ -59,7 +57,7 @@ function getWinningMessage(winnerChoice) {
     }
 }
 
-function playRPS() {
+function playRound() {
 
     let humanPlayer = getPlayerChoice();
     let aiPlayer = getComputerChoice();
@@ -81,7 +79,32 @@ function playRPS() {
     }
     else {
         console.log(`You loose! ${getWinningMessage(aiPlayer)}.`);
-    }  
+    }
+    return result;  
 }
 
-playRPS();
+function playGame() {
+    let playerScore = 0;
+    let aiScore = 0;
+
+    for (let i = 0; i < 5; i++)
+    {
+        console.log(`Game ${i + 1}:`);
+        let result = playRound();
+        
+        if (result === "human") {
+            playerScore++;
+        } else if (result === "ai") {
+            aiScore++;
+        }
+    }
+    console.log(`Final Score:  Player:${playerScore}, ai:${aiScore}.`)
+    if (playerScore > aiScore) {
+        console.log("Player Wins. ");
+    }
+    else {
+        console.log("AI Wins. ");
+    }
+}
+
+playGame();
